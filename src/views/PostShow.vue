@@ -1,5 +1,5 @@
 <template>
-  <div class="posts-show">
+  <div class="post-show">
     <h1>{{ message }}</h1>
       <br>
       <br>
@@ -10,6 +10,8 @@
       <br>
       <br>
       <img v-bind:src="post.image">
+      <br>
+      <button v-on:click="deletePost()"> Delete This Post </button>
       <p>∞</p>
       </div
   
@@ -23,24 +25,31 @@
 <script>
 import axios from "axios";
 export default {
-  data: function() {
+  data: function () {
     return {
       message: "Showing One Post!",
-      post: []
+      post: [],
     };
   },
-  created: function() {
+  created: function () {
     this.showPosts();
   },
   methods: {
-    showPosts: function() {
+    showPosts: function () {
       console.log("Hello");
       console.log(this.$route);
-      axios.get(`/api/posts/${this.$route.params.id}`).then(response => {
+      axios.get(`/api/posts/${this.$route.params.id}`).then((response) => {
         console.log(response.data);
         this.post = response.data;
       });
-    }
-  }
+    },
+    deletePost: function () {
+      console.log("Hi!");
+      axios.delete(`api/posts/${this.$route.params.id}`).then((response) => {
+        console.log(response.data);
+        this.$router.push("/posts");
+      });
+    },
+  },
 };
 </script>
