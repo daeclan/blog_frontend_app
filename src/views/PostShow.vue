@@ -11,7 +11,15 @@
       <br>
       <img v-bind:src="post.image">
       <br>
-      <button v-on:click="deletePost()"> Delete This Post </button>
+      <p>post.user_id {{post.user_id}}
+      <p>current user's id {{ $parent.getUserId()}}
+      <br>
+        <span v-if="post.user_id == $parent.getUserId()">
+          <br>
+          <a v-bind:href="`/posts/${post.id}/edit`">Edit This Post</a>
+          <br>
+          <button v-on:click="deletePost()"> Delete This Post </button>
+        </span>
       <p>∞</p>
       </div
   
